@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CET Question Bank</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f0f4f8 0%, #e6f0fa 100%);
+            color: #2d3748;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0 30px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        header::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, #3498db, #2c3e50);
+            border-radius: 2px;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #4a5568;
+            max-width: 700px;
+            margin: 0 auto 15px;
+            font-weight: 300;
+        }
+        
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+        
+        .search-box {
+            width: 100%;
+            padding: 15px 20px 15px 50px;
+            border: none;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .search-box:focus {
+            outline: none;
+            box-shadow: 0 8px 20px rgba(52, 152, 219, 0.3);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #718096;
+        }
+        
+        .filters {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+        
+        .filter-btn {
+            padding: 10px 20px;
+            background: #edf2f7;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background: #3498db;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .stat-box {
+            background: white;
+            padding: 20px 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            text-align: center;
+            min-width: 150px;
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-box:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-value {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #3498db;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            color: #718096;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        
+        .years-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .year-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            border-top: 4px solid #3498db;
+        }
+        
+        .year-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .year-header {
+            background: linear-gradient(to right, #3498db, #2c3e50);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .year-header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+        }
+        
+        .year-header h2 {
+            font-size: 1.8rem;
+            margin: 0;
+            font-weight: 700;
+            position: relative;
+        }
+        
+        .subjects {
+            padding: 20px;
+        }
+        
+        .subject {
+            display: flex;
+            align-items: center;
+            padding: 14px;
+            margin-bottom: 12px;
+            background: #f8fafc;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            border-left: 3px solid #3498db;
+        }
+        
+        .subject:hover {
+            background: #edf7ff;
+            transform: translateX(5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        
+        .subject-icon {
+            width: 42px;
+            height: 42px;
+            background: #3498db;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .subject-name {
+            flex: 1;
+            font-weight: 500;
+            color: #2d3748;
+        }
+        
+        .download-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+        
+        .download-btn:hover {
+            background: #2980b9;
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.4);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #718096;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 30px;
+        }
+        
+        .footer-text {
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+        
+        .footer-stats {
+            display: inline-flex;
+            background: rgba(52, 152, 219, 0.1);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 500;
+            margin-top: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .years-container {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .stat-box {
+                min-width: 120px;
+                padding: 15px;
+            }
+            
+            .stat-value {
+                font-size: 1.8rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .filters {
+                gap: 8px;
+            }
+            
+            .filter-btn {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #2ecc71;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 1000;
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-graduation-cap"></i> CET Question Bank</h1>
+            <p class="subtitle">Access previous year question papers for Physics, Chemistry, Mathematics, and Biology</p>
+            
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-box" placeholder="Search for subjects, years, or keywords...">
+            </div>
+        </header>
+        
+        <div class="filters">
+            <button class="filter-btn active"><i class="fas fa-layer-group"></i> All Years</button>
+            <button class="filter-btn"><i class="fas fa-atom"></i> Physics</button>
+            <button class="filter-btn"><i class="fas fa-flask"></i> Chemistry</button>
+            <button class="filter-btn"><i class="fas fa-calculator"></i> Mathematics</button>
+            <button class="filter-btn"><i class="fas fa-leaf"></i> Biology</button>
+            <button class="filter-btn"><i class="fas fa-sort-amount-down"></i> Recent First</button>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-box">
+                <div class="stat-value">10+</div>
+                <div class="stat-label">Years Covered</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">40+</div>
+                <div class="stat-label">Papers Available</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">4</div>
+                <div class="stat-label">Subjects</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">5k+</div>
+                <div class="stat-label">Questions</div>
+            </div>
+        </div>
+        
+        <div class="years-container">
+            <!-- 2024 -->
+            <div class="year-card">
+                <div class="year-header">
+                    <h2>2024</h2>
+                </div>
+                <div class="subjects">
+                    <div class="subject">
+                        <div class="subject-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="subject-name">Full Question Paper</div>
+                        <a href="cet2024.pdf" target="_blank" class="download-btn">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 2023 -->
+            <div class="year-card">
+                <div class="year-header">
+                    <h2>2023</h2>
+                </div>
+                <div class="subjects">
+                    <div class="subject">
+                        <div class="subject-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="subject-name">Full Question Paper</div>
+                        <a href="cet2023.pdf" target="_blank" class="download-btn">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 2022 -->
+            <div class="year-card">
+                <div class="year-header">
+                    <h2>2022</h2>
+                </div>
+                <div class="subjects">
+                    <div class="subject">
+                        <div class="subject-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="subject-name">Full Question Paper</div>
+                        <a href="cet2022.pdf" target="_blank" class="download-btn">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 2021 -->
+            <div class="year-card">
+                <div class="year-header" style="background: linear-gradient(to right, #9b59b6, #8e44ad);">
+                    <h2>2021</h2>
+                </div>
+                <div class="subjects">
+                    <div class="subject">
+                        <div class="subject-icon" style="background: #9b59b6;">
+                            <i class="fas fa-atom"></i>
+                        </div>
+                        <div class="subject-name">Physics</div>
+                        <a href="cetphysics2021.pdf" target="_blank" class="download-btn" style="background: #9b59b6;">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    </div>
+                    <div class="subject">
+                        <div class="subject-icon" style="background: #e74c3c;">
+                            <i class="fas fa-flask"></i>
+                        </div>
+                        <div class="subject-name">Chemistry</div>
+                        <a href="cetchemistry2021.pdf" target="_blank" class="download-btn" style="background: #e74c3c;">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    </div>
+                    <div class="subject">
+                        <div class="subject-icon" style="background: #f39c12;">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <div class="subject-name">Mathematics</div>
+                        <a href="cetmaths2021.pdf" target="_blank" class="download-btn" style="background: #f39c12;">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 2020 -->
+            <div class="year-card">
+                <div class="year-header" style="background: linear-gradient(to right, #e74c3c, #c0392b);">
+                    <h2>2020</h2>
+                </div>
+                <div class="subjects">
+                    <div class="subject">
+                        <div class="subject-icon" style="background: #9b59b6;">
+                            <i class="fas fa-atom"></i>
+                        </div>
+                        <div class="subject-name">Physics</div>
+                        <a href="cetphysics2020.pdf" target="_blank" class="download-btn" style="background: #9b59b6;">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    </div>
+                    <div class="subject">
+                        <div class="subject-icon" style="background: #e74c3c;">
+                            <i class="fas fa-flask"></i>
+                        </div>
+                        <div class="subject-name">Chemistry</div>
+                        <a href="cetchemistry2020.pdf" target="_blank" class="download-btn" style="background: #e74c3c;">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    </div>
+                    <div class="subject">
+                        <div class="subject-icon" style="background: #f39c12;">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <div class="subject-name">Mathematics</div>
+                        <a href="cetmaths2020.pdf" target="_blank" class="download-btn" style="background: #f39c12;">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 2019 -->
+            <div class="year-card">
+                <div class="year-header" style="background: linear-gradient(to right, #f39c12, #d35400);">
+                    <h2>2019</h2>
+                </div>
+                <div class="subjects">
+                    <div class="subject">
+                        <div class="subject-icon" style="background: #9b59b6;">
+                            <i class="fas fa-atom"></i>
+                        </div>
+                        <div class="subject-name">Physics</div>
+                        <a href="cetphysics2019.pdf" target="_blank" class="download-btn" style="background: #9b59b6;">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    </div>
+                    <div class="subject">
+                        <div class="subject-icon" style="background: #e74c3c;">
+                            <i class="fas fa-flask"></i>
+                        </div>
+                        <div class="subject-name">Chemistry</div>
+                        <a href="cetchemistry2019.pdf" target="_blank" class="download-btn" style="background: #e74c3c;">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    </div>
+                    <div class="subject">
+                        <div class="subject-icon" style="background: #f39c12;">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <div class="subject-name">Mathematics</div>
+                        <a href="cetmaths2019.pdf" target="_blank" class="download-btn" style="background: #f39c12;">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    </div>
+                    <div class="subject">
+                        <div class="subject-icon" style="background: #2ecc71;">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div class="subject-name">Biology</div>
+                        <a href="cetbiology2019.pdf" target="_blank" class="download-btn" style="background: #2ecc71;">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 2018 -->
+            <div class="year-card">
+                <div class="year-header" style="background: linear-gradient(to right, #2ecc71, #27ae60);">
+                    <h2>2018</h2>
+                </div>
+                <div class="subjects">
+                    <div class="subject">
+                        <div class="subject-icon" style="background: #9b59b6;">
+                            <i class="fas fa-atom"></i>
+                        </div>
+                        <div class="subject-name">Physics</div>
+                        <a href="cetphysics2018.pdf" target="_blank" class="download-btn" style="background: #9b59b6;">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    </div>
+                    <div class="subject">
+                        <div class="subject-icon" style="background: #e74c3c;">
+                            <i class="fas fa-flask"></i>
+                        </div>
+                        <div class="subject-name">Chemistry</div>
+                        <a href="cetchemistry2018.pdf" target="_blank" class="download-btn" style="background: #e74c3c;">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    </div>
+                    <div class="subject">
+                        <div class="subject-icon" style="background: #f39c12;">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <div class="subject-name">Mathematics</div>
+                        <a href="cetmaths2018.pdf" target="_blank" class="download-btn" style="background: #f39c12;">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    </div>
+                    <div class="subject">
+                        <div class="subject-icon" style="background: #2ecc71;">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div class="subject-name">Biology</div>
+                        <a href="cetbiology2018.pdf" target="_blank" class="download-btn" style="background: #2ecc71;">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 2017 -->
+            <div class="year-card">
+                <div class="year-header" style="background: linear-gradient(to right, #3498db, #2980b9);">
+                    <h2>2017</h2>
+                </div>
+                <div class="subjects">
+                    <div class="subject">
+                        <div class="subject-icon" style="background: #9b59b6;">
+                            <i class="fas fa-atom"></i>
+                        </div>
+                        <div class="subject-name">Physics</div>
+                        <a href="cetphysics2017.pdf" target="_blank" class="download-btn" style="background: #9b59b6;">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    </div>
+                    <div class="subject">
+                        <div class="subject-icon" style="background: #e74c3c;">
+                            <i class="fas fa-flask"></i>
+                        </div>
+                        <div class="subject-name">Chemistry</div>
+                        <a href="cetchemistry2017.pdf" target="_blank" class="download-btn" style="background: #e74c3c;">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    </div>
+                    <div class="subject">
+                        <div class="subject-icon" style="background: #f39c12;">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <div class="subject-name">Mathematics</div>
+                        <a href="cetmaths2017.pdf" target="_blank" class="download-btn" style="background: #f39c12;">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    </div>
+                    <div class="subject">
+                        <div class="subject-icon" style="background: #2ecc71;">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div class="subject-name">Biology</div>
+                        <a href="cetbiology2017.pdf" target="_blank" class="download-btn" style="background: #2ecc71;">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p class="footer-text">© 2023 CET Question Bank | Comprehensive Exam Preparation Resources</p>
+            <div class="footer-stats">
+                <i class="fas fa-file-pdf"></i> 40+ Papers • 10+ Years • 4 Subjects
+            </div>
+        </footer>
+    </div>
+    
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i> File download started in a new tab!
+    </div>
+
+    <script>
+        // Update all download links to open in new tab
+        document.querySelectorAll('.download-btn').forEach(link => {
+            link.addEventListener('click', function(e) {
+                // Show notification
+                const notification = document.getElementById('notification');
+                notification.style.display = 'block';
+                
+                // Hide notification after 3 seconds
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }, 3000);
+            });
+        });
+        
+        // Filter buttons functionality
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // Add active class to clicked button
+                this.classList.add('active');
+            });
+        });
+        
+        // Search functionality
+        const searchBox = document.querySelector('.search-box');
+        searchBox.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const yearCards = document.querySelectorAll('.year-card');
+            
+            yearCards.forEach(card => {
+                const year = card.querySelector('.year-header h2').textContent;
+                const subjects = card.querySelectorAll('.subject-name');
+                
+                let hasMatch = false;
+                
+                // Check if year matches
+                if (year.toLowerCase().includes(searchTerm)) {
+                    hasMatch = true;
+                }
+                
+                // Check if any subject matches
+                subjects.forEach(subject => {
+                    if (subject.textContent.toLowerCase().includes(searchTerm)) {
+                        hasMatch = true;
+                    }
+                });
+                
+                // Show/hide card based on match
+                card.style.display = hasMatch ? 'block' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>
